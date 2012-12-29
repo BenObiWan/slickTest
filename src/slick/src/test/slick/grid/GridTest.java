@@ -12,7 +12,8 @@ public class GridTest extends BasicGame
 	private int _y = 100;
 
 	@Override
-	public void mouseClicked(int button, int x, int y, int clickCount)
+	public void mouseClicked(final int button, final int x, final int y,
+			final int clickCount)
 	{
 		_x = x;
 		_y = y;
@@ -24,43 +25,55 @@ public class GridTest extends BasicGame
 	}
 
 	@Override
-	public void init(GameContainer gc) throws SlickException
+	public void init(final GameContainer gc) throws SlickException
 	{
 
 	}
 
 	@Override
-	public void update(GameContainer gc, int delta) throws SlickException
+	public void update(final GameContainer gc, final int delta)
+			throws SlickException
 	{
 
 	}
 
 	@Override
-	public void render(GameContainer gc, Graphics g) throws SlickException
+	public void render(final GameContainer gc, final Graphics g)
+			throws SlickException
 	{
 		drawTable(g, _x, _y, 80, 80, 6, 7);
 	}
 
-	private void drawTable(Graphics g, int iTopLeftX, int iTopLeftY,
-			int iRowSize, int iColumnSize, int iRowCount, int iColumnCount)
+	private void drawTable(final Graphics g, final int iTopLeftX,
+			final int iTopLeftY, final int iRowSize, final int iColumnSize,
+			final int iRowCount, final int iColumnCount)
 	{
 		// draw vertical lines
 		for (int i = 0; i <= iColumnCount; i++)
 		{
-			g.drawLine(iTopLeftX + i * iColumnSize, iTopLeftY, iTopLeftX + i
-					* iColumnSize, iTopLeftY + iRowCount * iRowSize);
+			final int iX = iTopLeftX + i * iColumnSize;
+			g.drawLine(iX - 1, iTopLeftY, iX - 1, iTopLeftY + iRowCount
+					* iRowSize);
+			g.drawLine(iX, iTopLeftY, iX, iTopLeftY + iRowCount * iRowSize);
+			g.drawLine(iX + 1, iTopLeftY, iX + 1, iTopLeftY + iRowCount
+					* iRowSize);
 		}
 		// draw horizontal lines
 		for (int i = 0; i <= iRowCount; i++)
 		{
-			g.drawLine(iTopLeftX, iTopLeftY + i * iRowSize, iTopLeftX
-					+ iColumnCount * iColumnSize, iTopLeftY + i * iRowSize);
+			final int iY = iTopLeftY + i * iRowSize;
+			g.drawLine(iTopLeftX, iY - 1, iTopLeftX + iColumnCount
+					* iColumnSize, iY - 1);
+			g.drawLine(iTopLeftX, iY, iTopLeftX + iColumnCount * iColumnSize,
+					iY);
+			g.drawLine(iTopLeftX, iY + 1, iTopLeftX + iColumnCount
+					* iColumnSize, iY + 1);
 		}
 	}
 
-	public static void main(String[] args) throws SlickException
+	public static void main(final String[] args) throws SlickException
 	{
-		AppGameContainer app = new AppGameContainer(new GridTest());
+		final AppGameContainer app = new AppGameContainer(new GridTest());
 
 		app.setDisplayMode(800, 600, false);
 		app.start();
